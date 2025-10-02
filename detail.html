@@ -1,35 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detail Berita</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header>
-    <h2 class="brand">Portal Berita</h2>
-    <nav class="nav-tabs">
-      <a href="index.html" class="tab-link active">← Kembali</a>
-    </nav>
+    <h2>Portal Berita</h2>
+    <nav><a href="index.html">← Kembali</a></nav>
+    <button class="theme-toggle" id="themeToggle">☀️</button>
   </header>
-
-  <!-- tombol tema mengambang -->
-  <button class="theme-toggle floating" id="themeToggle">
-    <span id="themeIcon">☀️</span>
-  </button>
-
   <main id="detailContainer"></main>
-
   <footer>Hak Cipta © 2025 Portal Berita</footer>
-
-  <!-- Modal popup gambar -->
-  <div id="imgModal">
-    <span id="closeModal">&times;</span>
-    <img id="modalImg" src="" alt="Gambar penuh" />
-  </div>
-
   <script src="assets/js/app.js"></script>
 </body>
 </html>
