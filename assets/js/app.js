@@ -1,6 +1,6 @@
-const API_BASE = "https://script.google.com/macros/s/AKfycbzpgdh4RbGx0G38QesDE5vYSBdKW1ikzNMFNfPGDN3rRKR8iLx5gpkY8BaeIxtJZRvUMA/exec";
+const API_BASE="https://script.google.com/macros/s/AKfycbzpgdh4RbGx0G38QesDE5vYSBdKW1ikzNMFNfPGDN3rRKR8iLx5gpkY8BaeIxtJZRvUMA/exec";
 
-/* THEME */
+/* THEME TOGGLE */
 const themeToggle=document.getElementById("themeToggle");
 if(themeToggle){
   themeToggle.addEventListener("click",()=>{
@@ -9,7 +9,8 @@ if(themeToggle){
     themeToggle.textContent=document.body.classList.contains("dark")?"🌙":"☀️";
   });
   if(localStorage.getItem("theme")==="dark"){
-    document.body.classList.add("dark");themeToggle.textContent="🌙";
+    document.body.classList.add("dark");
+    themeToggle.textContent="🌙";
   }
 }
 
@@ -58,7 +59,6 @@ if(document.getElementById("detailContainer")){
           <h2>${data.Judul}</h2>
           <div class="date">${data.TanggalPost}</div>
           <p>${data.Isi.replace(/\n/g,"<br>")}</p>
-          <a href="index.html" class="btn">← Kembali</a>
         </div>`;
     });
 }
