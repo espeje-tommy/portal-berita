@@ -5,36 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detail Berita</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* sama seperti index, hanya ada tombol kembali di kanan */
+    :root{--bg-light:#f9f9fb;--bg-dark:#121212;--text-light:#222;--text-dark:#eee;--card-light:#fff;--card-dark:#1e1e1e;--accent:#f7b500;--accent-gradient:linear-gradient(135deg,#ffd84d,#f7b500);}
+    body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg-light);color:var(--text-light);transition:all .3s ease;}
+    body.dark{background:var(--bg-dark);color:var(--text-dark);}
+    header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;
+      backdrop-filter:blur(12px);background:rgba(255,255,255,0.7);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(0,0,0,0.05);}
+    body.dark header{background:rgba(18,18,18,0.8);border-bottom:1px solid rgba(255,255,255,0.1);}
+    header h2{margin:0;cursor:pointer;}
+    .theme-toggle{position: fixed;bottom: 12px;left: 12px;z-index:2000;background:var(--card-light);border:none;border-radius:50%;width:40px;height:40px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.2);}
+    body.dark .theme-toggle{background:var(--card-dark);color:#fff;}
+    main{padding:1.5rem;max-width:800px;margin:auto;}
+    .card{background:var(--card-light);margin-bottom:1.2rem;border-radius:18px;padding:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,0.05);}
+    body.dark .card{background:var(--card-dark);}
+    .date{font-size:.85rem;color:#777;margin-bottom:.6rem;}body.dark .date{color:#aaa;}
+    .btn{display:inline-block;padding:.55rem 1.2rem;border-radius:14px;background:var(--accent-gradient);color:#000;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.25);transition: transform .2s;}
+    .btn:hover{transform:scale(1.05);}
+    .detail-img{width:100%;max-width:700px;max-height:400px;border-radius:12px;margin:1rem auto;display:block;object-fit:cover;cursor:zoom-in;}
+    footer{text-align:center;padding:1rem;font-size:.9rem;opacity:.7;}
+    @media(max-width:768px){header{flex-direction:row;justify-content:space-between;}}
+    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:2000;}
+    #lightbox img{max-width:90%;max-height:90%;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
+    #closeBtn{position:absolute;top:20px;right:30px;font-size:2rem;font-weight:bold;color:#fff;cursor:pointer;z-index:2100;}
+  </style>
 </head>
 <body>
   <header>
-    <h2><a href="index.html" class="logo">Portal Berita</a></h2>
-    <nav>
-      <button class="btn back-btn" onclick="history.back()">Kembali</button>
-    </nav>
+    <h2 onclick="location.href='index.html'">Portal Berita</h2>
+    <a href="javascript:history.back()" class="btn">Kembali</a>
   </header>
 
-  <!-- switch tema floating -->
   <button class="theme-toggle" id="themeToggle">☀️</button>
 
   <main id="detailContainer"></main>
 
-  <footer>
-    Hak Cipta © 2025 Portal Berita
-  </footer>
+  <footer>Hak Cipta © 2025 Portal Berita</footer>
 
-  <!-- Lightbox -->
   <div id="lightbox" onclick="this.style.display='none'">
     <img id="lightbox-img">
+    <span id="closeBtn" onclick="document.getElementById('lightbox').style.display='none'">×</span>
   </div>
 
-  <script src="assets/js/app.js"></script>
   <script>
-    function showLightbox(src){
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox').style.display = 'flex';
+    const API_BASE="https://script.google.com/macros/s/AKfycbzpgdh4RbGx0G38QesDE5vYSBdKW1ikzNMFNfPGDN3rRKR8iLx5gpkY8BaeIxtJZRvUMA/exec";
+    const themeToggle=document.getElementById("themeToggle");
+    if(themeToggle){
+      themeToggle.addEventListener("click",()=>{
+        document.body.classList.toggle("dark");
+        localStorage.setItem("theme",document.body.classList.contains("dark")?"dark":"light");
+        themeToggle.textContent=document.body.classList.contains("dark")?"🌙":"☀️";
+      });
+      if(localStorage.getItem("theme")==="dark"){document.body.classList.add("dark");themeToggle.textContent="🌙";}
     }
+    if(document.getElementById("detailContainer")){
+      const id=new URLSearchParams(window.location.search).get("id");
+      fetch(`${API_BASE}?action=getDetail&id=${id}`)
+        .then(r=>r.json())
+        .then(({ok,data})=>{
+          if(!ok) return;
+          document.getElementById("detailContainer").innerHTML=`
+            <div class="card">
+              ${data.GambarURL?`<img src="${data.GambarURL}" class="detail-img" onclick="showLightbox(this.src)">`:""}
+              <h2>${data.Judul}</h2>
+              <div class="date">${data.TanggalPost}</div>
+              <p>${data.Isi.replace(/\n/g,"<br>")}</p>
+            </div>`;
+        });
+    }
+    function showLightbox(src){document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').style.display='flex';}
   </script>
 </body>
 </html>
