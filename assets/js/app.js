@@ -1,5 +1,4 @@
-// API BASE
-const API_BASE = "https://script.google.com/macros/s/AKfycbzpgdh4RbGx0G38QesDE5vYSBdKW1ikzNMFNfPGDN3rRKR8iLx5gpkY8BaeIxtJZRvUMA/exec";
+const API_BASE = "PASTE_URL_WEBAPP_DEPLOYED";
 
 /* ==== THEME SWITCHER ==== */
 const themeToggle = document.getElementById("themeToggle");
@@ -9,7 +8,6 @@ if (themeToggle) {
     localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
     themeToggle.textContent = document.body.classList.contains("dark") ? "🌙" : "☀️";
   });
-  // load theme awal
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark");
     themeToggle.textContent = "🌙";
@@ -18,10 +16,8 @@ if (themeToggle) {
 
 /* ==== INDEX PAGE ==== */
 if (document.getElementById("contentList")) {
-  // default tampil berita
   loadPosts("Berita");
 
-  // navigasi kategori
   document.querySelectorAll("nav a").forEach(a => {
     a.addEventListener("click", e => {
       e.preventDefault();
