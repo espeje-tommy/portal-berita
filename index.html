@@ -5,11 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Berita</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    :root {
+      --bg-light:#f9f9fb; --bg-dark:#121212;
+      --text-light:#222; --text-dark:#eee;
+      --card-light:#fff; --card-dark:#1e1e1e;
+      --accent:#f7b500;
+      --accent-gradient:linear-gradient(135deg,#ffd84d,#f7b500);
+    }
+    body {margin:0;font-family:'Poppins',sans-serif;background:var(--bg-light);color:var(--text-light);transition:all .3s ease;}
+    body.dark {background:var(--bg-dark);color:var(--text-dark);}
+    header {display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;
+      backdrop-filter:blur(12px);background:rgba(255,255,255,0.7);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(0,0,0,0.05);}
+    body.dark header {background:rgba(18,18,18,0.8);border-bottom:1px solid rgba(255,255,255,0.1);}
+    header h2 {margin:0;cursor:pointer;}
+    nav {display:flex;gap:.8rem;}
+    nav a {padding:.4rem 1rem;border-radius:12px;font-weight:500;text-decoration:none;color:inherit;}
+    nav a.active, nav a:hover {background:var(--accent);color:#000;}
+    .theme-toggle {position: fixed;bottom: 12px;left: 12px;z-index:2000;background:var(--card-light);border:none;border-radius:50%;width:40px;height:40px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.2);}
+    body.dark .theme-toggle {background:var(--card-dark);color:#fff;}
+    main {padding:1.5rem;max-width:800px;margin:auto;}
+    .card {background:var(--card-light);margin-bottom:1.2rem;border-radius:18px;padding:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,0.05);}
+    body.dark .card {background:var(--card-dark);}
+    .card h2,.card h3 {margin:.3rem 0;}
+    .date {font-size:.85rem;color:#777;margin-bottom:.6rem;}
+    body.dark .date {color:#aaa;}
+    .btn {display:inline-block;padding:.55rem 1.2rem;border-radius:14px;background:var(--accent-gradient);color:#000;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.25);transition: transform .2s;}
+    .btn:hover {transform: scale(1.05);}
+    .thumb {width:100%;max-height:180px;object-fit:cover;border-radius:12px;margin-bottom:.8rem;}
+    footer {text-align:center;padding:1rem;font-size:.9rem;opacity:.7;}
+    @media (max-width:768px){
+      header{flex-direction:column;align-items:center;text-align:center;gap:.6rem;}
+      header h2{font-size:1.2rem;}
+      nav{justify-content:center;gap:.4rem;}
+      nav a{font-size:.8rem;padding:.3rem .6rem;border-radius:8px;}
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h2><a href="index.html" class="logo">Portal Berita</a></h2>
+    <h2 onclick="location.href='index.html'">Portal Berita</h2>
     <nav>
       <a href="#" class="active" data-tab="Berita">Berita</a>
       <a href="#" data-tab="Pengumuman">Pengumuman</a>
@@ -17,17 +52,52 @@
     </nav>
   </header>
 
-  <!-- switch tema floating -->
   <button class="theme-toggle" id="themeToggle">☀️</button>
 
-  <main>
-    <div id="contentList"></div>
-  </main>
+  <main><div id="contentList"></div></main>
 
-  <footer>
-    Hak Cipta © 2025 Portal Berita
-  </footer>
+  <footer>Hak Cipta © 2025 Portal Berita</footer>
 
-  <script src="assets/js/app.js"></script>
+  <script>
+    const API_BASE="https://script.google.com/macros/s/AKfycbzpgdh4RbGx0G38QesDE5vYSBdKW1ikzNMFNfPGDN3rRKR8iLx5gpkY8BaeIxtJZRvUMA/exec";
+    const themeToggle=document.getElementById("themeToggle");
+    if(themeToggle){
+      themeToggle.addEventListener("click",()=>{
+        document.body.classList.toggle("dark");
+        localStorage.setItem("theme",document.body.classList.contains("dark")?"dark":"light");
+        themeToggle.textContent=document.body.classList.contains("dark")?"🌙":"☀️";
+      });
+      if(localStorage.getItem("theme")==="dark"){document.body.classList.add("dark");themeToggle.textContent="🌙";}
+    }
+    if(document.getElementById("contentList")){
+      loadPosts("Berita");
+      document.querySelectorAll("nav a").forEach(a=>{
+        a.addEventListener("click",e=>{
+          e.preventDefault();
+          document.querySelectorAll("nav a").forEach(x=>x.classList.remove("active"));
+          a.classList.add("active");
+          loadPosts(a.dataset.tab);
+        });
+      });
+    }
+    function loadPosts(category){
+      fetch(`${API_BASE}?action=getPosts&category=${category}`)
+        .then(r=>r.json())
+        .then(({ok,data})=>{
+          const c=document.getElementById("contentList");c.innerHTML="";
+          if(!ok||!data.length){c.innerHTML="<p>Tidak ada data.</p>";return;}
+          data.forEach(d=>{
+            c.innerHTML+=`
+              <div class="card">
+                ${d.GambarURL?`<img src="${d.GambarURL}" class="thumb">`:""}
+                <h3>${d.Judul}</h3>
+                <div class="date">${d.TanggalPost}</div>
+                <p>${d.Isi.substring(0,120)}...</p>
+                <a href="detail.html?id=${d.ID}" class="btn">Baca Selengkapnya</a>
+              </div>`;
+          });
+        });
+    }
+  </script>
 </body>
 </html>
