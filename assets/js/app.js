@@ -97,7 +97,7 @@ function renderList(category, data) {
 
   listDiv.innerHTML = data.map(item =>
     `<div class="card">
-       ${item.GambarURL ? `<img src="${item.GambarURL}" class="thumb" loading="lazy">` : ""}
+       ${item.GambarURL ? `<img src="${item.GambarURL}" class="thumb">` : ""}
        <h3>${item.Judul}</h3>
        <div class="date">${item.TanggalPost}</div>
        <p>${item.Isi.substring(0,120)}...</p>
