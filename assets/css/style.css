@@ -150,26 +150,27 @@ footer {
 /* RESPONSIVE HEADER */
 @media (max-width: 768px) {
   header {
-    flex-direction: column;
+    flex-direction: row;       /* tetap sejajar horizontal */
+    justify-content: space-between;
     align-items: center;
     text-align: center;
     gap: 0.6rem;
   }
   header h2 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin: 0;
   }
   nav {
-    justify-content: center;
-    flex-wrap: nowrap;
+    display: flex;
     gap: 0.4rem;
   }
-  nav a {
+  nav a, .back-btn {
     font-size: 0.8rem;
-    padding: 0.3rem 0.6rem;
+    padding: 0.3rem 0.8rem;
     border-radius: 8px;
   }
 }
+
 
 /* Lightbox overlay (fullsize) */
 #lightbox {
