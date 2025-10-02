@@ -1,7 +1,6 @@
-// API BASE
 const API_BASE = "https://script.google.com/macros/s/AKfycbzpgdh4RbGx0G38QesDE5vYSBdKW1ikzNMFNfPGDN3rRKR8iLx5gpkY8BaeIxtJZRvUMA/exec";
 
-/* ==== THEME SWITCHER ==== */
+/* THEME SWITCHER */
 const themeToggle = document.getElementById("themeToggle");
 if (themeToggle) {
   themeToggle.addEventListener("click", () => {
@@ -9,14 +8,13 @@ if (themeToggle) {
     localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
     themeToggle.textContent = document.body.classList.contains("dark") ? "🌙" : "☀️";
   });
-  // load theme awal
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark");
     themeToggle.textContent = "🌙";
   }
 }
 
-/* ==== INDEX PAGE ==== */
+/* INDEX PAGE */
 if (document.getElementById("contentList")) {
   loadPosts("Berita");
 
@@ -43,21 +41,19 @@ function loadPosts(category) {
       data.forEach(d => {
         c.innerHTML += `
           <div class="card">
-            ${d.GambarURL ? `<img src="${d.GambarURL}" class="thumb" alt="thumbnail">` : ""}
+            ${d.GambarURL ? `
+              <img src="${d.GambarURL}" class="thumb" alt="thumbnail"
+                   onerror="this.onerror=null;this.src='${API_BASE}?action=getImage&id=${d.GambarID}'">` : ""}
             <h3>${d.Judul}</h3>
             <div class="date">${d.TanggalPost}</div>
-            <p>${d.Isi.substring(0, 120)}...</p>
+            <p>${d.Isi.substring(0,120)}...</p>
             <a href="detail.html?id=${d.ID}" class="btn">Baca Selengkapnya</a>
           </div>`;
       });
-    })
-    .catch(err => {
-      console.error("Error loadPosts:", err);
-      document.getElementById("contentList").innerHTML = "<p>❌ Gagal memuat data.</p>";
     });
 }
 
-/* ==== DETAIL PAGE ==== */
+/* DETAIL PAGE */
 if (document.getElementById("detailContainer")) {
   const id = new URLSearchParams(window.location.search).get("id");
   fetch(`${API_BASE}?action=getDetail&id=${id}`)
@@ -69,15 +65,13 @@ if (document.getElementById("detailContainer")) {
       }
       document.getElementById("detailContainer").innerHTML = `
         <div class="card">
-          ${data.GambarURL ? `<img src="${data.GambarURL}" class="detail-img" alt="gambar">` : ""}
+          ${data.GambarURL ? `
+            <img src="${data.GambarURL}" class="detail-img" alt="gambar"
+                 onerror="this.onerror=null;this.src='${API_BASE}?action=getImage&id=${data.GambarID}'">` : ""}
           <h2>${data.Judul}</h2>
           <div class="date">${data.TanggalPost}</div>
-          <p>${data.Isi.replace(/\n/g, "<br>")}</p>
+          <p>${data.Isi.replace(/\n/g,"<br>")}</p>
           <a href="index.html" class="btn">← Kembali</a>
         </div>`;
-    })
-    .catch(err => {
-      console.error("Error loadDetail:", err);
-      document.getElementById("detailContainer").innerHTML = "<p>❌ Gagal memuat detail.</p>";
     });
 }
