@@ -198,3 +198,24 @@ footer {
   cursor: pointer;
   z-index: 2100;
 }
+
+/* Logo link */
+header .logo {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Tombol kembali */
+.back-btn {
+  background: var(--accent-gradient);
+  border: none;
+  padding: .5rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+.back-btn:hover {
+  transform: scale(1.05);
+}
