@@ -55,10 +55,11 @@ if(document.getElementById("detailContainer")){
       if(!ok) return;
       document.getElementById("detailContainer").innerHTML=`
         <div class="card">
-          ${data.GambarURL?`<img src="${data.GambarURL}" class="detail-img" alt="${data.Judul}" onclick="showLightbox(this.src)">`:""}
+          ${data.GambarURL?`<img src="${data.GambarURL}" class="detail-img" onclick="showLightbox(this.src)">`:""}
           <h2>${data.Judul}</h2>
-          <div class="date">${data.TanggalPost} | ${data.Kategori||''}</div>
-          <div class="isi">${(data.Isi||'').replace(/\n/g,"<br>")}</div>
+          <div class="date">${data.TanggalPost}</div>
+          <p>${data.Isi.replace(/\n/g,"<br>")}</p>
         </div>`;
     });
 }
+
