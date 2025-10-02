@@ -9,9 +9,9 @@
 </head>
 <body>
   <header>
-    <h2>Portal Berita</h2>
+    <h2><a href="index.html" class="logo">Portal Berita</a></h2>
     <nav>
-      <a href="index.html" class="btn">← Kembali</a>
+      <button class="btn back-btn" onclick="history.back()">Kembali</button>
     </nav>
   </header>
 
@@ -26,8 +26,7 @@
 
   <!-- Lightbox -->
   <div id="lightbox" onclick="this.style.display='none'">
-    <span id="closeBtn">×</span>
-    <img id="lightbox-img" alt="Preview">
+    <img id="lightbox-img">
   </div>
 
   <script src="assets/js/app.js"></script>
@@ -36,10 +35,6 @@
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
     }
-    document.getElementById("closeBtn").onclick = function(e){
-      e.stopPropagation();
-      document.getElementById('lightbox').style.display = 'none';
-    };
   </script>
 </body>
 </html>
