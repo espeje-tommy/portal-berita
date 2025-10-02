@@ -128,10 +128,14 @@ body.dark .date {
   margin-bottom:.8rem;
 }
 .detail-img {
-  width:100%;
-  border-radius:12px;
-  margin-bottom:1rem;
-  object-fit:contain;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 12px;
+  cursor: zoom-in;
+  max-width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
 }
 footer {
   text-align:center;
@@ -164,27 +168,6 @@ footer {
   }
 }
 
-/* Thumbnail di daftar (index) */
-.thumb {
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: .8rem;
-}
-
-/* Gambar di halaman detail */
-.detail-img {
-  width: 100%;
-  max-width: 800px;
-  max-height: 600px;
-  border-radius: 12px;
-  margin: 1rem auto;
-  display: block;
-  object-fit: contain;
-  cursor: zoom-in;
-}
-
 /* Lightbox overlay (zoom gambar) */
 #lightbox {
   position: fixed;
@@ -200,4 +183,15 @@ footer {
   max-height: 90%;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+/* Tombol close di lightbox */
+#closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2100;
 }
