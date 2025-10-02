@@ -16,208 +16,95 @@ body {
   font-family: 'Poppins', sans-serif;
   background: var(--bg-light);
   color: var(--text-light);
-  transition: all .3s ease;
+  transition: background .3s ease, color .3s ease;
 }
-body.dark {
-  background: var(--bg-dark);
-  color: var(--text-dark);
-}
+body.dark { background: var(--bg-dark); color: var(--text-dark); }
 
 /* ==== HEADER ==== */
 header {
   display: flex;
-  flex-wrap: wrap; /* biar wrap ke bawah saat sempit */
+  flex-wrap: wrap; /* wrap rapi saat layar sempit */
   justify-content: space-between;
   align-items: center;
-  gap: 0.8rem;
+  gap: .8rem;
   padding: 1rem 1.5rem;
   backdrop-filter: blur(12px);
   background: rgba(255,255,255,0.7);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position: sticky; top: 0; z-index: 100;
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 body.dark header {
   background: rgba(18,18,18,0.8);
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-
-header h2 {
-  margin: 0;
-  font-weight: 600;
-}
+header .brand { margin: 0; font-weight: 600; }
 
 /* ==== NAV ==== */
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .8rem;
-}
+nav { display: flex; flex-wrap: wrap; gap: .8rem; }
 nav a {
-  text-decoration: none;
-  padding: .4rem 1rem;
-  border-radius: 12px;
-  font-weight: 500;
-  color: inherit;
-  transition: background .2s;
+  text-decoration: none; padding: .4rem 1rem; border-radius: 12px;
+  font-weight: 500; color: inherit; transition: background .2s;
 }
-nav a.active, nav a:hover {
-  background: var(--accent);
-  color: #000;
-}
+nav a.active, nav a:hover { background: var(--accent); color: #000; }
 
 /* ==== THEME TOGGLE ==== */
 .theme-toggle {
-  background: var(--card-light);
-  color: #000;
-  border: none;
-  border-radius: 50%;
-  width: 38px;
-  height: 38px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--card-light); color:#000;
+  border: none; border-radius: 50%;
+  width: 38px; height: 38px; font-size: 1.1rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
-body.dark .theme-toggle {
-  background: var(--card-dark);
-  color: #fff;
-}
+body.dark .theme-toggle { background: var(--card-dark); color:#fff; }
 
 /* ==== MAIN ==== */
-main {
-  padding: 1.5rem;
-  max-width: 800px;
-  margin: auto;
-}
+main { padding: 1.5rem; max-width: 800px; margin: auto; }
 
 /* ==== CARD ==== */
 .card {
   background: var(--card-light);
-  margin-bottom: 1.2rem;
-  border-radius: 18px;
-  padding: 1.2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: all .3s;
+  margin-bottom: 1.2rem; border-radius: 18px; padding: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform .2s, box-shadow .2s, background .3s;
 }
-body.dark .card {
-  background: var(--card-dark);
-}
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-}
-.card h3, .card h2 {
-  margin: .3rem 0;
-  font-weight: 600;
-}
-.date {
-  font-size: .85rem;
-  color: #777;
-  margin-bottom: .6rem;
-}
-body.dark .date {
-  color: #aaa;
-}
+body.dark .card { background: var(--card-dark); }
+.card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
+.card h3, .card h2 { margin: .3rem 0; font-weight: 600; }
+.date { font-size: .85rem; color: #777; margin-bottom: .6rem; }
+body.dark .date { color: #aaa; }
 
 /* ==== BUTTON ==== */
 .btn {
-  display: inline-block;
-  padding: .55rem 1.2rem;
-  border-radius: 14px;
-  background: var(--accent-gradient);
-  color: #000;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: .6rem;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  transition: transform .2s;
+  display: inline-block; padding: .55rem 1.2rem; border-radius: 14px;
+  background: var(--accent-gradient); color: #000; font-weight: 600;
+  cursor: pointer; margin-top: .6rem; text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: transform .2s;
 }
-.btn:hover {
-  transform: scale(1.05);
-}
+.btn:hover { transform: scale(1.05); }
 
 /* ==== IMAGE ==== */
-.thumb {
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: .8rem;
-}
-.detail-img {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-}
+.thumb { width: 100%; max-height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: .8rem; }
+.detail-img { width: 100%; border-radius: 12px; margin-bottom: 1rem; }
 
 /* ==== FOOTER ==== */
-footer {
-  text-align: center;
-  padding: 1rem;
-  font-size: .9rem;
-  opacity: .7;
-}
+footer { text-align: center; padding: 1rem; font-size: .9rem; opacity: .7; }
 
 /* ==== IMAGE POPUP ==== */
-.popup-img {
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-.popup-img:hover {
-  transform: scale(1.02);
-}
+.popup-img { cursor: pointer; transition: transform 0.2s; }
+.popup-img:hover { transform: scale(1.02); }
 #imgModal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  align-items: center;
-  justify-content: center;
+  display: none; position: fixed; z-index: 9999; inset: 0;
+  background: rgba(0,0,0,0.85); align-items: center; justify-content: center;
 }
-#imgModal img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.7);
-}
-#imgModal span {
-  position: absolute;
-  top: 15px;
-  right: 25px;
-  font-size: 2rem;
-  color: #fff;
-  cursor: pointer;
-}
+#imgModal img { max-width: 90%; max-height: 90%; border-radius: 10px; box-shadow: 0 0 25px rgba(0,0,0,0.7); }
+#imgModal span { position: absolute; top: 15px; right: 25px; font-size: 2rem; color: #fff; cursor: pointer; }
 
 /* ==== RESPONSIVE ==== */
 @media (max-width: 768px) {
-  header {
-    justify-content: center;
-    text-align: center;
-  }
-  header h2 {
-    width: 100%;
-    margin-bottom: 0.5rem;
-    text-align: center;
-  }
-  nav {
-    justify-content: center;
-    width: 100%;
-  }
-  main {
-    padding: 1rem;
-  }
-  .card {
-    padding: 1rem;
-    border-radius: 14px;
-  }
-  .thumb {
-    max-height: 160px;
-  }
+  header { flex-direction: column; align-items: center; text-align: center; }
+  header .brand { width: 100%; margin-bottom: .25rem; }
+  nav { justify-content: center; width: 100%; }
+  .theme-toggle { order: 3; }
+  main { padding: 1rem; }
+  .card { padding: 1rem; border-radius: 14px; }
+  .thumb { max-height: 160px; }
 }
