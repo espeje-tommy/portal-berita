@@ -13,18 +13,20 @@
     <nav class="nav-tabs">
       <a href="index.html" class="tab-link active">← Kembali</a>
     </nav>
-    <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">
-      <span id="themeIcon">☀️</span>
-    </button>
   </header>
+
+  <!-- tombol tema mengambang -->
+  <button class="theme-toggle floating" id="themeToggle">
+    <span id="themeIcon">☀️</span>
+  </button>
 
   <main id="detailContainer"></main>
 
   <footer>Hak Cipta © 2025 Portal Berita</footer>
 
   <!-- Modal popup gambar -->
-  <div id="imgModal" aria-hidden="true">
-    <span id="closeModal" aria-label="Tutup">&times;</span>
+  <div id="imgModal">
+    <span id="closeModal">&times;</span>
     <img id="modalImg" src="" alt="Gambar penuh" />
   </div>
 
