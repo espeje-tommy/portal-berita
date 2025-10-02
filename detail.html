@@ -26,7 +26,8 @@
 
   <!-- Lightbox -->
   <div id="lightbox" onclick="this.style.display='none'">
-    <img id="lightbox-img">
+    <span id="closeBtn">×</span>
+    <img id="lightbox-img" alt="Preview">
   </div>
 
   <script src="assets/js/app.js"></script>
@@ -35,6 +36,10 @@
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
     }
+    document.getElementById("closeBtn").onclick = function(e){
+      e.stopPropagation();
+      document.getElementById('lightbox').style.display = 'none';
+    };
   </script>
 </body>
 </html>
