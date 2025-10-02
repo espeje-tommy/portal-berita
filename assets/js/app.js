@@ -24,10 +24,9 @@ function renderList(cat,data){
   if(!data||!data.length){div.innerHTML="<p>Tidak ada data.</p>";return;}
   if(cat==="Peraturan"){div.innerHTML=data.map(p=>`<div class="card"><h3>${escapeHtml(p.judul)}</h3><div class="date">${p.modifiedTime}</div><a href="${p.url}" target="_blank" class="btn">📑 PDF</a></div>`).join("");return;}
   div.innerHTML=data.map(item=>{
-    let img=""; if(item.GambarURL){const imgId="img_"+item.ID; img=`<img id="${imgId}" class="thumb" alt="gambar">`; loadImageBase64(item.GambarURL,imgId);}
+    let img=""; if(item.GambarURL){const imgId="img_"+item.ID; img=`<img id="${imgId}" class="thumb popup-img" alt="gambar">`; loadImageBase64(item.GambarURL,imgId);}
     return `<div class="card">${img}<h3>${escapeHtml(item.Judul)}</h3><div class="date">${item.TanggalPost}</div><p>${escapeHtml((item.Isi||'').substring(0,120))}...</p><a href="detail.html?id=${item.ID}" class="btn">Baca Selengkapnya</a></div>`;
   }).join("");
-  div.querySelectorAll("img").forEach(enableImagePopup);
 }
 function loadImageBase64(apiUrl,elId){
   fetch(apiUrl).then(r=>r.json()).then(res=>{
@@ -43,9 +42,8 @@ if(document.getElementById("detailContainer")){
 }
 function renderDetail(d){
   const c=document.getElementById("detailContainer"); let img="";
-  if(d.GambarURL){img=`<img id="detailImg" class="detail-img" alt="gambar">`; loadImageBase64(d.GambarURL,"detailImg");}
+  if(d.GambarURL){img=`<img id="detailImg" class="detail-img popup-img" alt="gambar">`; loadImageBase64(d.GambarURL,"detailImg");}
   c.innerHTML=`<article class="card">${img}<h2>${escapeHtml(d.Judul)}</h2><div class="date">${d.TanggalPost}</div><p>${escapeHtml(d.Isi).replace(/\n/g,"<br>")}</p></article>`;
-  document.querySelectorAll(".detail-img").forEach(enableImagePopup);
 }
 
 // ===== Modal Popup =====
